@@ -1,1 +1,10 @@
-<p>login form!</p>
+<div class="login">
+  <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1 class="h3 mb-4 font-weight-normal">Please sign in</h1>
+
+    <input id="username" class="form-control" placeholder="Username" formControlName="username" type="text" required au tofocus>
+    <input id="password" class="form-control" placeholder="Password" formControlName="password" type="password" required>
+
+    <button [disabled]="loading" class="btn btn-lg btn-primary btn-block mt-4" type="submit">Login</button>
+  </form>
+</div>
