@@ -15,6 +15,7 @@
   - Add token to all requests if logged in
   - Logout user if response code is 401
   - Redirect to /admin if response code is 403
+  - Throw generic error when "success" is false
 
 - Alert service
 - Base form and form validations

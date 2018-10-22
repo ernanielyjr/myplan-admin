@@ -1,0 +1,35 @@
+<!-- TODO: customer info -->
+
+<table class="table table-sm table-striped" *ngIf="invoices && invoices.length">
+  <thead>
+    <th>Competência</th>
+    <th>Vencimento</th>
+    <th>Valor</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let invoice of invoices">
+      <td>{{ monthNames[invoice.month] }}/{{ invoice.year }}</td>
+      <td>{{ invoice.dueDate }}</td>
+      <td>{{ invoice.amount | currency:'BRL' }}</td>
+      <td class="text-right">
+        <span *ngIf="invoice.closed" class="badge badge-success">FECHADA</span>
+        <span *ngIf="!invoice.closed" class="badge badge-warning">ABERTA</span>
+      </td>
+      <td>
+        <span *ngIf="invoice.paid" class="badge badge-success">PAGA</span>
+        <span *ngIf="!invoice.paid" class="badge badge-warning">PENDENTE</span>
+        <!-- TODO: <span *ngIf="!invoice.paid" class="badge badge-danger">VENCIDA</span> -->
+      </td>
+      <td>
+        <a [routerLink]="['/admin', 'postings', invoice._id]" class="btn btn-sm btn-info text-white">Postings</a>
+        <!-- <pre>{{ invoice | json }}</pre> -->
+        <!-- TODO: Visualizar -->
+        <!-- TODO: Enviar por email -->
+        <!-- TODO: Fechar fatura -->
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,24 @@
+<!-- TODO: invoice info -->
+
+<table class="table table-sm table-striped" *ngIf="postings && postings.length">
+  <thead>
+    <th>Data</th>
+    <th>Descrição</th>
+    <th>Valor</th>
+    <th>Tipo</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let posting of postings">
+      <td>{{ posting.createdAt | date:'dd/MM' }}</td>
+      <td>{{ posting.description }}</td>
+      <td>{{ posting.amount | currency:'BRL' }}</td>
+      <td>
+        <span class="badge {{ typeColors[posting.type] }}">{{ posting.type | uppercase }}</span>
+      </td>
+      <td>
+        <!-- <pre>{{ posting | json }}</pre> -->
+      </td>
+    </tr>
+  </tbody>
+</table>

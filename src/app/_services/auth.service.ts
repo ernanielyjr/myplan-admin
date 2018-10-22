@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { AuthPayload, DefaultResponse } from '../_models/request-response.model';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -21,7 +22,7 @@ export class AuthService {
       password
     };
     return this.http
-      .post<AuthPayload.Response>(`${environment.baseUrl}/v1/authenticate`, data)
+      .post<DefaultResponse<AuthPayload.Response>>(`${environment.baseUrl}/v1/authenticate`, data)
       .pipe(
         tap((response) => {
           this.userService.setToken(response.result.token);
