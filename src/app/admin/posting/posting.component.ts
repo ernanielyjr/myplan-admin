@@ -11,12 +11,6 @@ import { PostingService } from 'src/app/_services/posting.service.';
 export class PostingComponent implements OnInit {
 
   public postings: InvoicePayload.Posting[];
-  public typeColors = {
-    [InvoicePayload.PostingType.balance]: 'badge-secondary',
-    [InvoicePayload.PostingType.charges]: 'badge-info',
-    [InvoicePayload.PostingType.income]: 'badge-success',
-    [InvoicePayload.PostingType.service]: 'badge-warning',
-  };
 
   private invoiceId: string;
 

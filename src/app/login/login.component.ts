@@ -9,9 +9,9 @@ import { AuthService } from '../_services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  private loginForm: FormGroup;
   private returnUrl: string;
 
+  public loginForm: FormGroup;
   public loading = false;
   public submitted = false;
 
@@ -31,10 +31,6 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
   }
 
-  public get form() {
-    return this.loginForm.controls;
-  }
-
   public onSubmit() {
     this.submitted = true;
 
@@ -44,7 +40,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authService.login(this.form.username.value, this.form.password.value)
+    this.authService.login(this.loginForm.get('username').value, this.loginForm.get('password').value)
       .subscribe(
         (response) => {
           this.router.navigate([this.returnUrl]);

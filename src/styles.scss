@@ -1,1 +1,37 @@
 @import '~bootstrap/scss/bootstrap';
+
+.bg-balance {
+  color: color-yiq(theme-color("secondary"));
+  background-color: theme-color("secondary");
+}
+
+.text-balance {
+  color: theme-color("secondary");
+}
+
+.bg-charges {
+  color: color-yiq(theme-color("info"));
+  background-color: theme-color("info");
+}
+
+.text-charges {
+  color: theme-color("info");
+}
+
+.bg-income {
+  color: color-yiq(theme-color("success"));
+  background-color: theme-color("success");
+}
+
+.text-income {
+  color: theme-color("success");
+}
+
+.bg-service {
+  color: color-yiq(theme-color("warning"));
+  background-color: theme-color("warning");
+}
+
+.text-service {
+  color: theme-color("warning");
+}

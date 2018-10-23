@@ -12,7 +12,7 @@
   <tbody>
     <tr *ngFor="let invoice of invoices">
       <td>{{ monthNames[invoice.month] }}/{{ invoice.year }}</td>
-      <td>{{ invoice.dueDate }}</td>
+      <td>{{ invoice.dueDate | date:'shortDate' }}</td>
       <td>{{ invoice.amount | currency:'BRL' }}</td>
       <td class="text-right">
         <span *ngIf="invoice.closed" class="badge badge-success">FECHADA</span>
@@ -21,7 +21,7 @@
       <td>
         <span *ngIf="invoice.paid" class="badge badge-success">PAGA</span>
         <span *ngIf="!invoice.paid" class="badge badge-warning">PENDENTE</span>
-        <!-- TODO: <span *ngIf="!invoice.paid" class="badge badge-danger">VENCIDA</span> -->
+        <!-- TODO: <span *ngIf="invoice.dueDate < today" class="badge badge-danger">VENCIDA</span> -->
       </td>
       <td>
         <a [routerLink]="['/admin', 'postings', invoice._id]" class="btn btn-sm btn-info text-white">Postings</a>

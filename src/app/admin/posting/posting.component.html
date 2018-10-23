@@ -14,7 +14,7 @@
       <td>{{ posting.description }}</td>
       <td>{{ posting.amount | currency:'BRL' }}</td>
       <td>
-        <span class="badge {{ typeColors[posting.type] }}">{{ posting.type | uppercase }}</span>
+        <span class="badge bg-{{ posting.type }}">{{ posting.type | uppercase }}</span>
       </td>
       <td>
         <!-- <pre>{{ posting | json }}</pre> -->
