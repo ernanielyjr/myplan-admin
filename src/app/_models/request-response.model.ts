@@ -87,3 +87,23 @@ export namespace EmailPayload {
     cc: string[];
   }
 }
+
+export namespace ServicePayload {
+  export interface Service {
+    _id: string;
+    updatedAt: string; // TODO: date?
+    createdAt: string; // TODO: date?
+    _customerId: string;
+    description: string;
+    amount: number;
+    inactive: boolean;
+    recurrenceInterval: number;
+    recurrenceType: RecurrenceType;
+  }
+
+  export enum RecurrenceType {
+    monthly   = 'monthly',
+    quarterly = 'quarterly',
+    yearly    = 'yearly',
+  }
+}

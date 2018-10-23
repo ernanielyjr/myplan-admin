@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CustomerDetailComponent } from './admin/customer-detail/customer-detail.component';
+import { CustomerListComponent } from './admin/customer-list/customer-list.component';
 import { EmailDetailComponent } from './admin/email-detail/email-detail.component';
 import { EmailListComponent } from './admin/email-list/email-list.component';
 import { HomeComponent } from './admin/home/home.component';
-import { InvoiceComponent } from './admin/invoice/invoice.component';
-import { PostingComponent } from './admin/posting/posting.component';
+import { InvoiceListComponent } from './admin/invoice-list/invoice-list.component';
+import { ServiceListComponent } from './admin/service-list/service-list.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoggedInGuard } from './_guards/logged-in.guard';
@@ -16,11 +18,29 @@ const routes: Routes = [{
     path: '',
     component: HomeComponent,
   }, {
-    path: 'customer-invoices/:customerId',
-    component: InvoiceComponent,
+    path: 'customers',
+    children: [{
+      path: '',
+      component: CustomerListComponent,
+    }, {
+      path: ':customerId',
+      children: [{
+        path: '',
+        component: CustomerDetailComponent,
+      }, {
+        path: 'invoices',
+        component: InvoiceListComponent,
+      }, {
+        path: 'services',
+        component: ServiceListComponent,
+      }]
+    }]
   }, {
-    path: 'postings/:invoiceId',
-    component: PostingComponent,
+    path: 'invoices',
+    component: InvoiceListComponent,
+  }, {
+    path: 'services',
+    component: ServiceListComponent,
   }, {
     path: 'emails',
     children: [{

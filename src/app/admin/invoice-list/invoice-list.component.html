@@ -1,5 +1,4 @@
-<!-- TODO: customer info -->
-<a *ngIf="!invoices || !invoices.length" class="btn btn-primary text-white" (click)="generateFirstInvoice()">Gerar primeira fatura</a>
+<a *ngIf="customerId && (!invoices || !invoices.length)" class="btn btn-primary text-white" (click)="generateFirstInvoice()">Gerar primeira fatura</a>
 <table class="table table-sm table-striped" *ngIf="invoices && invoices.length">
   <thead>
     <th>Competência</th>
@@ -23,12 +22,8 @@
         <span *ngIf="!invoice.paid" class="badge badge-warning">PENDENTE</span>
         <!-- TODO: <span *ngIf="invoice.dueDate < today" class="badge badge-danger">VENCIDA</span> -->
       </td>
-      <td>
+      <td class="col-buttons">
         <a [routerLink]="['/admin', 'postings', invoice._id]" class="btn btn-sm btn-info text-white">Postings</a>
-        <!-- <pre>{{ invoice | json }}</pre> -->
-        <!-- TODO: Visualizar -->
-        <!-- TODO: Enviar por email -->
-        <!-- TODO: Fechar fatura -->
         <a *ngIf="!invoice.closed" (click)="closeInvoice(invoice)" class="btn btn-sm btn-warning">Fechar</a>
       </td>
     </tr>

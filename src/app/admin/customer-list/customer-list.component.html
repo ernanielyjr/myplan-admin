@@ -1,0 +1,23 @@
+<table class="table table-sm table-striped" *ngIf="customers && customers.length">
+  <thead>
+    <th>Nome:</th>
+    <th>Vencimento:</th>
+    <th>Telefones:</th>
+    <th>E-mails:</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{ customer.responsibleName || customer.name }}</td>
+      <td>{{ customer.invoiceMaturity }}</td>
+      <td>{{ customer.phones.join(' / ') }}</td>
+      <td>{{ customer.emails.join(' / ') }}</td>
+      <td class="col-buttons">
+        <a [routerLink]="['./', customer._id]" class="btn btn-sm btn-info text-white">Detalhes</a>
+        <a [routerLink]="['./', customer._id, 'services']" class="btn btn-sm btn-info text-white">Serviços</a>
+        <a [routerLink]="['./', customer._id, 'invoices']" class="btn btn-sm btn-info text-white">Faturas</a>
+        <!-- <pre>{{ customer | json }}</pre> -->
+      </td>
+    </tr>
+  </tbody>
+</table>

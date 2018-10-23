@@ -32,6 +32,14 @@ export class InvoiceService {
     return response;
   }
 
+  public list() {
+    return this.http
+      .get<DefaultResponse<InvoicePayload.Invoice[]>>(`${environment.baseUrl}/v1/invoice`)
+      .pipe(
+        map(this.sortInvoices)
+      );
+  }
+
   public listByCustomer(customerId: string) {
     return this.http
       .get<DefaultResponse<InvoicePayload.Invoice[]>>(`${environment.baseUrl}/v1/customer/${customerId}/invoices`)

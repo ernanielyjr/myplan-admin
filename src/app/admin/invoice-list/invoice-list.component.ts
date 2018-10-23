@@ -2,20 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Locale } from 'src/app/locale';
 import { InvoicePayload } from 'src/app/_models/request-response.model';
-import { InvoiceService } from 'src/app/_services/invoice.service';
 import { CustomerService } from 'src/app/_services/customer.service';
+import { InvoiceService } from 'src/app/_services/invoice.service';
 
 @Component({
-  selector: 'app-invoice',
-  templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.scss']
+  selector: 'app-invoice-list',
+  templateUrl: './invoice-list.component.html',
+  styleUrls: ['./invoice-list.component.scss']
 })
-export class InvoiceComponent implements OnInit {
+export class InvoiceListComponent implements OnInit {
 
   public invoices: InvoicePayload.Invoice[];
   public monthNames = Locale.monthNames;
-
-  private customerId: string;
+  public customerId: string;
 
   constructor(
     private invoiceService: InvoiceService,
@@ -32,33 +31,41 @@ export class InvoiceComponent implements OnInit {
 
   public generateFirstInvoice() {
     this.customerService
-    .generateFirstInvoice(this.customerId)
-    .subscribe(
-      (response) => {
-        this.getInvoices();
-      },
-      (error) => {
-        // TODO:
-      }
-    );
+      .generateFirstInvoice(this.customerId)
+      .subscribe(
+        (response) => {
+          this.getInvoices();
+        },
+        (error) => {
+          // TODO:
+        }
+      );
   }
 
   public closeInvoice(invoice: InvoicePayload.Invoice) {
+    if (!confirm('Deseja realmente fechar esta fatura?')) {
+      return;
+    }
+
     this.invoiceService
-    .closeInvoice(invoice._id)
-    .subscribe(
-      (response) => {
-        this.getInvoices();
-      },
-      (error) => {
-        // TODO:
-      }
-    );
+      .closeInvoice(invoice._id)
+      .subscribe(
+        (response) => {
+          this.getInvoices();
+        },
+        (error) => {
+          // TODO:
+        }
+      );
   }
 
   private getInvoices() {
-    this.invoiceService
-      .listByCustomer(this.customerId)
+    let selectedService = this.invoiceService.list();
+    if (this.customerId) {
+      selectedService = this.invoiceService.listByCustomer(this.customerId);
+    }
+
+    selectedService
       .subscribe(
         (response) => {
           this.invoices = response.result;

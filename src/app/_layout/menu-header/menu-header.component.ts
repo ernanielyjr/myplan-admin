@@ -12,6 +12,8 @@ export class MenuHeaderComponent {
   ) { }
 
   public logout() {
-    this.authService.logout();
+    if (confirm('Deseja realmente sair?')) {
+      this.authService.logout();
+    }
   }
 }

@@ -12,9 +12,8 @@
       <td>{{ email.subject }}</td>
       <td>{{ email.cc }}</td>
       <td>{{ email.sent }}</td>
-      <td>
+      <td class="col-buttons">
         <a [routerLink]="['./', email._id]" class="btn btn-sm btn-info text-white">Detalhes</a>
-        <!-- <pre>{{ email | json }}</pre> -->
       </td>
     </tr>
   </tbody>

@@ -1,1 +1,1 @@
-<iframe *ngIf="email" srcdoc="{{ email.body }}"></iframe>
+<iframe *ngIf="email" [srcdoc]="email.body | keepHtml"></iframe>
