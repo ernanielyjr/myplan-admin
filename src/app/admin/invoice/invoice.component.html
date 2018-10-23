@@ -1,5 +1,5 @@
 <!-- TODO: customer info -->
-
+<a *ngIf="!invoices || !invoices.length" class="btn btn-primary text-white" (click)="generateFirstInvoice()">Gerar primeira fatura</a>
 <table class="table table-sm table-striped" *ngIf="invoices && invoices.length">
   <thead>
     <th>Competência</th>
@@ -12,7 +12,7 @@
   <tbody>
     <tr *ngFor="let invoice of invoices">
       <td>{{ monthNames[invoice.month] }}/{{ invoice.year }}</td>
-      <td>{{ invoice.dueDate | date:'shortDate' }}</td>
+      <td>{{ invoice.dueDate | slice:0:10 | date:'shortDate' }}</td>
       <td>{{ invoice.amount | currency:'BRL' }}</td>
       <td class="text-right">
         <span *ngIf="invoice.closed" class="badge badge-success">FECHADA</span>
@@ -29,6 +29,7 @@
         <!-- TODO: Visualizar -->
         <!-- TODO: Enviar por email -->
         <!-- TODO: Fechar fatura -->
+        <a *ngIf="!invoice.closed" (click)="closeInvoice(invoice)" class="btn btn-sm btn-warning">Fechar</a>
       </td>
     </tr>
   </tbody>

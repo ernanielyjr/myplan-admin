@@ -16,7 +16,11 @@ export class CustomerService {
     return this.http.get<DefaultResponse<CustomerPayload.Customer[]>>(`${environment.baseUrl}/v1/customer`);
   }
 
-  public get(id: string) {
-    return this.http.get<DefaultResponse<CustomerPayload.Customer>>(`${environment.baseUrl}/v1/customer/${id}`);
+  public get(customerId: string) {
+    return this.http.get<DefaultResponse<CustomerPayload.Customer>>(`${environment.baseUrl}/v1/customer/${customerId}`);
+  }
+
+  public generateFirstInvoice(customerId: string) {
+    return this.http.get<DefaultResponse<any>>(`${environment.baseUrl}/v1/first-invoice/${customerId}`);
   }
 }

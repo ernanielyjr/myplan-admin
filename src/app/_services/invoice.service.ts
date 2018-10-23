@@ -39,4 +39,8 @@ export class InvoiceService {
         map(this.sortInvoices)
       );
   }
+
+  public closeInvoice(invoiceId: string) {
+    return this.http.get<DefaultResponse<any>>(`${environment.baseUrl}/v1/invoice/${invoiceId}/close`);
+  }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Locale } from 'src/app/locale';
 import { InvoicePayload } from 'src/app/_models/request-response.model';
 import { InvoiceService } from 'src/app/_services/invoice.service';
+import { CustomerService } from 'src/app/_services/customer.service';
 
 @Component({
   selector: 'app-invoice',
@@ -18,6 +19,7 @@ export class InvoiceComponent implements OnInit {
 
   constructor(
     private invoiceService: InvoiceService,
+    private customerService: CustomerService,
     private route: ActivatedRoute,
   ) { }
 
@@ -26,6 +28,32 @@ export class InvoiceComponent implements OnInit {
       this.customerId = params.get('customerId');
       this.getInvoices();
     });
+  }
+
+  public generateFirstInvoice() {
+    this.customerService
+    .generateFirstInvoice(this.customerId)
+    .subscribe(
+      (response) => {
+        this.getInvoices();
+      },
+      (error) => {
+        // TODO:
+      }
+    );
+  }
+
+  public closeInvoice(invoice: InvoicePayload.Invoice) {
+    this.invoiceService
+    .closeInvoice(invoice._id)
+    .subscribe(
+      (response) => {
+        this.getInvoices();
+      },
+      (error) => {
+        // TODO:
+      }
+    );
   }
 
   private getInvoices() {
