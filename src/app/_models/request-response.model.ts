@@ -71,3 +71,19 @@ export namespace InvoicePayload {
     service = 'service',
   }
 }
+
+export namespace EmailPayload {
+  export interface Email {
+    _id: string;
+    updatedAt: string; // TODO: date?
+    createdAt: string; // TODO: date?
+    subject: string;
+    body: string;
+    response?: any; // TODO: improve
+    sent: boolean;
+    attachments: any[]; // TODO: improve
+    bcc: string[];
+    cco: string[];
+    cc: string[];
+  }
+}

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EmailDetailComponent } from './admin/email-detail/email-detail.component';
+import { EmailListComponent } from './admin/email-list/email-list.component';
 import { HomeComponent } from './admin/home/home.component';
 import { InvoiceComponent } from './admin/invoice/invoice.component';
 import { PostingComponent } from './admin/posting/posting.component';
@@ -19,6 +21,15 @@ const routes: Routes = [{
   }, {
     path: 'postings/:invoiceId',
     component: PostingComponent,
+  }, {
+    path: 'emails',
+    children: [{
+      path: '',
+      component: EmailListComponent,
+    }, {
+      path: ':emailId',
+      component: EmailDetailComponent,
+    }]
   }]
 }, {
   path: 'login',

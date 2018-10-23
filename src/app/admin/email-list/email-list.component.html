@@ -1,0 +1,21 @@
+<table class="table table-sm table-striped" *ngIf="emails && emails.length">
+  <thead>
+    <th>Data</th>
+    <th>Assunto</th>
+    <th>Destinatário</th>
+    <th>Enviado</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let email of emails">
+      <td>{{ email.createdAt | slice:0:10 | date:'shortDate' }}</td>
+      <td>{{ email.subject }}</td>
+      <td>{{ email.cc }}</td>
+      <td>{{ email.sent }}</td>
+      <td>
+        <a [routerLink]="['./', email._id]" class="btn btn-sm btn-info text-white">Detalhes</a>
+        <!-- <pre>{{ email | json }}</pre> -->
+      </td>
+    </tr>
+  </tbody>
+</table>

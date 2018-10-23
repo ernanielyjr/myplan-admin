@@ -4,6 +4,8 @@ import pt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { EmailDetailComponent } from './admin/email-detail/email-detail.component';
+import { EmailListComponent } from './admin/email-list/email-list.component';
 import { HomeComponent } from './admin/home/home.component';
 import { InvoiceComponent } from './admin/invoice/invoice.component';
 import { PostingComponent } from './admin/posting/posting.component';
@@ -28,7 +30,9 @@ registerLocaleData(pt, 'pt-BR');
     HomeComponent,
     MenuHeaderComponent,
     InvoiceComponent,
-    PostingComponent
+    PostingComponent,
+    EmailListComponent,
+    EmailDetailComponent
   ],
   imports: [
     BrowserModule,
