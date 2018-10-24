@@ -1,3 +1,7 @@
+<span class="badge badge-success">TOTAL ATIVO: {{ amountActiveSum | currency:'BRL' }}</span><br />
+<span class="badge badge-light">TOTAL INATIVO: {{ amountInactiveSum | currency:'BRL' }}</span><br />
+<br />
+
 <table class="table table-sm table-striped" *ngIf="services && services.length">
   <thead>
     <th>Descrição</th>

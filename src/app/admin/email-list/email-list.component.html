@@ -8,10 +8,26 @@
   </thead>
   <tbody>
     <tr *ngFor="let email of emails">
-      <td>{{ email.createdAt | slice:0:10 | date:'shortDate' }}</td>
+      <td>
+          {{ email.createdAt }}<br />
+          {{ Date() }}<br />
+      </td>
+      <td>
+        {{ email.createdAt | date:'dd/MM/yyyy' }}<br />
+        {{ email.createdAt | date:'HH:mm:ss' }}
+      </td>
       <td>{{ email.subject }}</td>
-      <td>{{ email.cc }}</td>
-      <td>{{ email.sent }}</td>
+      <td>
+        <ng-container *ngFor="let cc of email.cc">
+          <ng-container *ngFor="let ccPart of cc.split(',')">
+            {{ ccPart }}<br />
+          </ng-container>
+        </ng-container>
+      </td>
+      <td>
+        <span *ngIf="email.sent" class="badge badge-success">ENVIADO</span>
+        <span *ngIf="!email.sent" class="badge badge-secondary">PENDENTE</span>
+      </td>
       <td class="col-buttons">
         <a [routerLink]="['./', email._id]" class="btn btn-sm btn-info text-white">Detalhes</a>
       </td>

@@ -14,13 +14,12 @@
       <td>{{ invoice.dueDate | slice:0:10 | date:'shortDate' }}</td>
       <td>{{ invoice.amount | currency:'BRL' }}</td>
       <td class="text-right">
-        <span *ngIf="invoice.closed" class="badge badge-success">FECHADA</span>
-        <span *ngIf="!invoice.closed" class="badge badge-warning">ABERTA</span>
-      </td>
-      <td>
+        <span *ngIf="!invoice.closed" class="badge badge-dark">ABERTA</span>
         <span *ngIf="invoice.paid" class="badge badge-success">PAGA</span>
-        <span *ngIf="!invoice.paid" class="badge badge-warning">PENDENTE</span>
-        <!-- TODO: <span *ngIf="invoice.dueDate < today" class="badge badge-danger">VENCIDA</span> -->
+        <ng-container *ngIf="invoice.closed && !invoice.paid">
+          <span *ngIf="!isOverdue(invoice.dueDate)" class="badge badge-warning">AGUARDANDO PAGAMENTO</span>
+          <span *ngIf="isOverdue(invoice.dueDate)" class="badge badge-danger">VENCIDA</span>
+        </ng-container>
       </td>
       <td class="col-buttons">
         <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Lançamentos</a>

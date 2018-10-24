@@ -16,6 +16,7 @@ export class InvoiceListComponent implements OnInit {
   public invoices: InvoicePayload.Invoice[];
   public monthNames = Locale.monthNames;
   public customerId: string;
+  private dateNow = new Date();
 
   constructor(
     private alertService: AlertService,
@@ -59,6 +60,10 @@ export class InvoiceListComponent implements OnInit {
           this.alertService.error('Algo deu errado!');
         }
       );
+  }
+
+  public isOverdue(date: string) {
+    return this.dateNow.toISOString().substr(0, 10) > date.substr(0, 10);
   }
 
   private getInvoices() {

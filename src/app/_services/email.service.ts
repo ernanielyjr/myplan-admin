@@ -18,7 +18,9 @@ export class EmailService {
       .get<DefaultResponse<EmailPayload.Email[]>>(`${environment.baseUrl}/v1/email`)
       .pipe(
         map((response) => {
-          response.result.sort((a, b) => ((a.sent === b.sent) ? 0 : a.sent ? 1 : -1));
+          response.result.sort((a, b) => {
+            return (a.sent === b.sent) ? (a.createdAt < b.createdAt ? -1 : (a.createdAt > b.createdAt ? 1 : 0)) : (a.sent ? 1 : -1);
+          });
           return response;
         })
       );

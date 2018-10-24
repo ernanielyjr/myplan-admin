@@ -14,6 +14,8 @@ export class ServiceListComponent implements OnInit {
 
   public services: ServicePayload.Service[];
   public monthNames = Locale.monthNames;
+  public amountActiveSum = 0;
+  public amountInactiveSum = 0;
 
   private customerId: string;
 
@@ -40,6 +42,8 @@ export class ServiceListComponent implements OnInit {
       .subscribe(
         (response) => {
           this.services = response.result;
+          this.amountActiveSum = this.services.filter(service => !service.inactive).reduce((sum, service) => sum + service.amount, 0);
+          this.amountInactiveSum = this.services.filter(service => service.inactive).reduce((sum, service) => sum + service.amount, 0);
         },
         (error) => {
           this.alertService.error('Algo deu errado!');
