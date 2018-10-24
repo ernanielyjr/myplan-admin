@@ -10,7 +10,7 @@ import { EmailDetailComponent } from './admin/email-detail/email-detail.componen
 import { EmailListComponent } from './admin/email-list/email-list.component';
 import { HomeComponent } from './admin/home/home.component';
 import { InvoiceListComponent } from './admin/invoice-list/invoice-list.component';
-import { PostingComponent } from './admin/posting/posting.component';
+import { PostingListComponent } from './admin/posting-list/posting-list.component';
 import { ServiceListComponent } from './admin/service-list/service-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,7 +35,7 @@ registerLocaleData(pt, 'pt-BR');
     HomeComponent,
     MenuHeaderComponent,
     InvoiceListComponent,
-    PostingComponent,
+    PostingListComponent,
     EmailListComponent,
     EmailDetailComponent,
     KeepHtmlPipe,

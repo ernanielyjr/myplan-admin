@@ -1,5 +1,3 @@
-<!-- TODO: invoice info -->
-
 <table class="table table-sm table-striped" *ngIf="postings && postings.length">
   <thead>
     <th>Data</th>
@@ -16,8 +14,7 @@
       <td>
         <span class="badge bg-{{ posting.type }}">{{ posting.type | uppercase }}</span>
       </td>
-      <td>
-        <!-- <pre>{{ posting | json }}</pre> -->
+      <td class="col-buttons">
       </td>
     </tr>
   </tbody>

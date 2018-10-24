@@ -5,11 +5,11 @@ import { AlertService } from 'src/app/_services/alert.service';
 import { PostingService } from 'src/app/_services/posting.service.';
 
 @Component({
-  selector: 'app-posting',
-  templateUrl: './posting.component.html',
-  styleUrls: ['./posting.component.scss']
+  selector: 'app-posting-list',
+  templateUrl: './posting-list.component.html',
+  styleUrls: ['./posting-list.component.scss']
 })
-export class PostingComponent implements OnInit {
+export class PostingListComponent implements OnInit {
 
   public postings: InvoicePayload.Posting[];
 
