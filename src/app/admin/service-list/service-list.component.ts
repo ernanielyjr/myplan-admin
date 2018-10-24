@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Locale } from 'src/app/locale';
 import { ServicePayload } from 'src/app/_models/request-response.model';
-import { CustomerService } from 'src/app/_services/customer.service';
+import { AlertService } from 'src/app/_services/alert.service';
 import { ServiceService } from 'src/app/_services/service.service';
 
 @Component({
@@ -18,9 +18,9 @@ export class ServiceListComponent implements OnInit {
   private customerId: string;
 
   constructor(
-    private serviceService: ServiceService,
-    private customerService: CustomerService,
+    private alertService: AlertService,
     private route: ActivatedRoute,
+    private serviceService: ServiceService,
   ) { }
 
   public ngOnInit() {
@@ -42,7 +42,7 @@ export class ServiceListComponent implements OnInit {
           this.services = response.result;
         },
         (error) => {
-          // TODO:
+          this.alertService.error('Algo deu errado!');
         }
       );
   }

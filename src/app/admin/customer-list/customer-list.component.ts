@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerPayload } from 'src/app/_models/request-response.model';
+import { AlertService } from 'src/app/_services/alert.service';
 import { CustomerService } from 'src/app/_services/customer.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class CustomerListComponent implements OnInit {
   public customers: CustomerPayload.Customer[];
 
   constructor(
+    private alertService: AlertService,
     private customerService: CustomerService,
   ) { }
 
@@ -27,7 +29,7 @@ export class CustomerListComponent implements OnInit {
           this.customers = response.result;
         },
         (error) => {
-          // TODO:
+          this.alertService.error('Algo deu errado!');
         }
       );
   }

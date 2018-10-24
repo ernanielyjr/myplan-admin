@@ -20,6 +20,7 @@ import { LoggedInGuard } from './_guards/logged-in.guard';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { MenuHeaderComponent } from './_layout/menu-header/menu-header.component';
 import { KeepHtmlPipe } from './_pipes/keep-html.pipe';
+import { AlertService } from './_services/alert.service';
 import { CustomerService } from './_services/customer.service';
 import { InvoiceService } from './_services/invoice.service';
 import { PostingService } from './_services/posting.service.';
@@ -58,6 +59,7 @@ registerLocaleData(pt, 'pt-BR');
       useClass: TokenInterceptor,
       multi: true
     },
+    AlertService,
     UserService,
     CustomerService,
     InvoiceService,

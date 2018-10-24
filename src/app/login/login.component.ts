@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from '../_services/alert.service';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -16,10 +17,11 @@ export class LoginComponent implements OnInit {
   public submitted = false;
 
   constructor(
+    private alertService: AlertService,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
   ) { }
 
   public ngOnInit() {
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
-      // TODO: Emit alert service
+      this.alertService.error('Preencha corretamente!');
       return;
     }
 
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         (error) => {
-          // TODO: this.alertService.error(error);
+          this.alertService.error('Algo deu errado!');
           this.loading = false;
         });
   }

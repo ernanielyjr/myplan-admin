@@ -14,7 +14,7 @@ export class TokenInterceptor implements HttpInterceptor {
       'Content-Type': 'application/json',
     };
 
-    if (this.userService.isLogged()) {
+    if (this.userService.isLoggedIn()) {
       headers['Authorization'] = this.userService.getToken();
     }
 

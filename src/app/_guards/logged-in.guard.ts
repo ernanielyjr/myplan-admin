@@ -10,7 +10,7 @@ export class LoggedInGuard implements CanActivate {
   ) { }
 
   public canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!this.userService.isLogged()) {
+    if (!this.userService.isLoggedIn()) {
       return true;
     }
 

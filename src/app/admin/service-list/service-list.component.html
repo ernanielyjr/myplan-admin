@@ -18,11 +18,10 @@
         </span>
       </td>
       <td>
-          <span *ngIf="!service.inactive" class="badge badge-success">ATIVO</span>
-          <span *ngIf="service.inactive" class="badge badge-inactive">INATIVO</span>
+        <span *ngIf="!service.inactive" class="badge badge-success">ATIVO</span>
+        <span *ngIf="service.inactive" class="badge badge-inactive">INATIVO</span>
       </td>
       <td class="col-buttons">
-        <a [routerLink]="['/services', service._id]" class="btn btn-sm btn-info text-white">Detalhes</a>
       </td>
     </tr>
   </tbody>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmailPayload } from 'src/app/_models/request-response.model';
+import { AlertService } from 'src/app/_services/alert.service';
 import { EmailService } from 'src/app/_services/email.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class EmailListComponent implements OnInit {
   public emails: EmailPayload.Email[];
 
   constructor(
+    private alertService: AlertService,
     private emailService: EmailService,
   ) { }
 
@@ -27,7 +29,7 @@ export class EmailListComponent implements OnInit {
           this.emails = response.result;
         },
         (error) => {
-          // TODO:
+          this.alertService.error('Algo deu errado!');
         }
       );
   }

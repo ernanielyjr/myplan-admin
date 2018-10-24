@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Locale } from 'src/app/locale';
 import { InvoicePayload } from 'src/app/_models/request-response.model';
+import { AlertService } from 'src/app/_services/alert.service';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { InvoiceService } from 'src/app/_services/invoice.service';
 
@@ -17,8 +18,9 @@ export class InvoiceListComponent implements OnInit {
   public customerId: string;
 
   constructor(
-    private invoiceService: InvoiceService,
+    private alertService: AlertService,
     private customerService: CustomerService,
+    private invoiceService: InvoiceService,
     private route: ActivatedRoute,
   ) { }
 
@@ -37,7 +39,7 @@ export class InvoiceListComponent implements OnInit {
           this.getInvoices();
         },
         (error) => {
-          // TODO:
+          this.alertService.error('Algo deu errado!');
         }
       );
   }
@@ -54,7 +56,7 @@ export class InvoiceListComponent implements OnInit {
           this.getInvoices();
         },
         (error) => {
-          // TODO:
+          this.alertService.error('Algo deu errado!');
         }
       );
   }
@@ -71,7 +73,7 @@ export class InvoiceListComponent implements OnInit {
           this.invoices = response.result;
         },
         (error) => {
-          // TODO:
+          this.alertService.error('Algo deu errado!');
         }
       );
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InvoicePayload } from 'src/app/_models/request-response.model';
+import { AlertService } from 'src/app/_services/alert.service';
 import { PostingService } from 'src/app/_services/posting.service.';
 
 @Component({
@@ -15,6 +16,7 @@ export class PostingComponent implements OnInit {
   private invoiceId: string;
 
   constructor(
+    private alertService: AlertService,
     private postingService: PostingService,
     private route: ActivatedRoute,
   ) { }
@@ -34,7 +36,7 @@ export class PostingComponent implements OnInit {
           this.postings = response.result;
         },
         (error) => {
-          // TODO:
+          this.alertService.error('Algo deu errado!');
         }
       );
   }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EmailPayload } from 'src/app/_models/request-response.model';
-import { EmailService } from 'src/app/_services/email.service';
 import { ActivatedRoute } from '@angular/router';
+import { EmailPayload } from 'src/app/_models/request-response.model';
+import { AlertService } from 'src/app/_services/alert.service';
+import { EmailService } from 'src/app/_services/email.service';
 
 @Component({
   selector: 'app-email-detail',
@@ -15,6 +16,7 @@ export class EmailDetailComponent implements OnInit {
   private emailId: string;
 
   constructor(
+    private alertService: AlertService,
     private emailService: EmailService,
     private route: ActivatedRoute,
   ) { }
@@ -34,7 +36,7 @@ export class EmailDetailComponent implements OnInit {
           this.email = response.result;
         },
         (error) => {
-          // TODO:
+          this.alertService.error('Algo deu errado!');
         }
       );
   }
