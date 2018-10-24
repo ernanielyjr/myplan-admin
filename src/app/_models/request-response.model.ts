@@ -17,8 +17,8 @@ export namespace AuthPayload {
 export namespace CustomerPayload {
   export interface Customer {
     _id: string;
-    updatedAt: string; // TODO: date?
-    createdAt: string; // TODO: date?
+    updatedAt: string;
+    createdAt: string;
     name: string;
     documentNumber: string;
     documentType: string;
@@ -42,9 +42,9 @@ export namespace CustomerPayload {
 export namespace InvoicePayload {
   export interface Invoice {
     _id: string;
-    updatedAt: string; // TODO: date?
-    createdAt: string; // TODO: date?
-    dueDate?: string;  // TODO: date?
+    updatedAt: string;
+    createdAt: string;
+    dueDate?: string;
     month: number;
     year: number;
     _customerId: string;
@@ -57,8 +57,8 @@ export namespace InvoicePayload {
 
   export interface Posting {
     _id: string;
-    updatedAt: string; // TODO: date?
-    createdAt: string; // TODO: date?
+    updatedAt: string;
+    createdAt: string;
     amount: number;
     type: PostingType;
     description: string;
@@ -75,13 +75,13 @@ export namespace InvoicePayload {
 export namespace EmailPayload {
   export interface Email {
     _id: string;
-    updatedAt: string; // TODO: date?
-    createdAt: string; // TODO: date?
+    updatedAt: string;
+    createdAt: string;
     subject: string;
     body: string;
-    response?: any; // TODO: improve
+    response?: any;
     sent: boolean;
-    attachments: any[]; // TODO: improve
+    attachments: any[];
     bcc: string[];
     cco: string[];
     cc: string[];
@@ -91,8 +91,8 @@ export namespace EmailPayload {
 export namespace ServicePayload {
   export interface Service {
     _id: string;
-    updatedAt: string; // TODO: date?
-    createdAt: string; // TODO: date?
+    updatedAt: string;
+    createdAt: string;
     _customerId: string;
     description: string;
     amount: number;
