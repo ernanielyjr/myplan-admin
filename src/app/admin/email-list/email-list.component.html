@@ -9,10 +9,6 @@
   <tbody>
     <tr *ngFor="let email of emails">
       <td>
-          {{ email.createdAt }}<br />
-          {{ Date() }}<br />
-      </td>
-      <td>
         {{ email.createdAt | date:'dd/MM/yyyy' }}<br />
         {{ email.createdAt | date:'HH:mm:ss' }}
       </td>

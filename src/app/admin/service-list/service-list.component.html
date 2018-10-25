@@ -1,5 +1,5 @@
 <span class="badge badge-success">TOTAL ATIVO: {{ amountActiveSum | currency:'BRL' }}</span><br />
-<span class="badge badge-light">TOTAL INATIVO: {{ amountInactiveSum | currency:'BRL' }}</span><br />
+<span class="badge badge-secondary">TOTAL INATIVO: {{ amountInactiveSum | currency:'BRL' }}</span><br />
 <br />
 
 <table class="table table-sm table-striped" *ngIf="services && services.length">
@@ -23,7 +23,7 @@
       </td>
       <td>
         <span *ngIf="!service.inactive" class="badge badge-success">ATIVO</span>
-        <span *ngIf="service.inactive" class="badge badge-inactive">INATIVO</span>
+        <span *ngIf="service.inactive" class="badge badge-secondary">INATIVO</span>
       </td>
       <td class="col-buttons">
       </td>
