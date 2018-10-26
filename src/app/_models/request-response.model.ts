@@ -52,6 +52,7 @@ export namespace InvoicePayload {
     amount?: number;
     paymentCode?: string;
     paid: boolean;
+    lastStatus: PagSeguro.Transaction.Status;
     postings?: Posting[];
   }
 
@@ -102,8 +103,36 @@ export namespace ServicePayload {
   }
 
   export enum RecurrenceType {
-    monthly   = 'monthly',
+    monthly = 'monthly',
     quarterly = 'quarterly',
-    yearly    = 'yearly',
+    yearly = 'yearly',
+  }
+}
+
+export namespace PagSeguro {
+  export namespace Transaction {
+    export enum Status {
+      AGUARDANDO_PAGAMENTO = '1',
+      EM_ANALISE = '2',
+      PAGA = '3',
+      DISPONIVEL = '4',
+      EM_DISPUTA = '5',
+      DEVOLVIDA = '6',
+      CANCELADA = '7',
+      DEBITADO = '8',
+      RETENCAO_TEMPORARIA = '9',
+    }
+
+    export const statusText = {
+      [Status.AGUARDANDO_PAGAMENTO]: 'Aguardando Pagamento',
+      [Status.EM_ANALISE]: 'Em Análise',
+      [Status.PAGA]: 'Paga',
+      [Status.DISPONIVEL]: 'Disponível',
+      [Status.EM_DISPUTA]: 'Em Disputa',
+      [Status.DEVOLVIDA]: 'Devolvida',
+      [Status.CANCELADA]: 'Cancelada',
+      [Status.DEBITADO]: 'Debitado',
+      [Status.RETENCAO_TEMPORARIA]: 'Retenção Temporária',
+    };
   }
 }

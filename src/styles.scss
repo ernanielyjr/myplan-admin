@@ -36,6 +36,10 @@
   color: theme-color("warning");
 }
 
-.col-buttons .btn {
-  margin: 2px 4px;
+.col-buttons {
+  text-align: right;
+
+  .btn {
+    margin: 2px 4px;
+  }
 }

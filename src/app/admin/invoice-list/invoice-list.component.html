@@ -1,11 +1,12 @@
-<a *ngIf="customerId && (!invoices || !invoices.length)" class="btn btn-primary text-white" (click)="generateFirstInvoice()">Gerar primeira fatura</a>
+<a *ngIf="customerId && (!invoices || !invoices.length)" class="btn btn-primary text-white" (click)="generateFirstInvoice()">Gerar
+  primeira fatura</a>
 <table class="table table-sm table-striped" *ngIf="invoices && invoices.length">
   <thead>
     <th>Competência</th>
     <th>Vencimento</th>
     <th>Valor</th>
     <th></th>
-    <th></th>
+    <th class="text-right">PagSeguro</th>
     <th></th>
   </thead>
   <tbody>
@@ -21,9 +22,12 @@
           <span *ngIf="isOverdue(invoice.dueDate)" class="badge badge-danger">VENCIDA</span>
         </ng-container>
       </td>
+      <td class="text-right">
+        <span *ngIf="invoice.lastStatus" class="badge badge-secondary">{{ statusList[invoice.lastStatus] | uppercase }}</span>
+      </td>
       <td class="col-buttons">
-        <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Lançamentos</a>
         <a *ngIf="!invoice.closed" (click)="closeInvoice(invoice)" class="btn btn-sm btn-warning">Fechar</a>
+        <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Lançamentos</a>
       </td>
     </tr>
   </tbody>

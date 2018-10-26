@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Locale } from 'src/app/locale';
-import { InvoicePayload } from 'src/app/_models/request-response.model';
+import { InvoicePayload, PagSeguro } from 'src/app/_models/request-response.model';
 import { AlertService } from 'src/app/_services/alert.service';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { InvoiceService } from 'src/app/_services/invoice.service';
@@ -16,6 +16,8 @@ export class InvoiceListComponent implements OnInit {
   public invoices: InvoicePayload.Invoice[];
   public monthNames = Locale.monthNames;
   public customerId: string;
+  public statusList = PagSeguro.Transaction.statusText;
+
   private dateNow = new Date();
 
   constructor(
