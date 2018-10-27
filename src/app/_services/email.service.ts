@@ -19,7 +19,7 @@ export class EmailService {
       .pipe(
         map((response) => {
           response.result.sort((a, b) => {
-            return (a.sent === b.sent) ? (a.createdAt < b.createdAt ? -1 : (a.createdAt > b.createdAt ? 1 : 0)) : (a.sent ? 1 : -1);
+            return (a.sent === b.sent) ? (a.createdAt > b.createdAt ? -1 : (a.createdAt < b.createdAt ? 1 : 0)) : (a.sent ? 1 : -1);
           });
           return response;
         })
