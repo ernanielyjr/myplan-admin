@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { LoggedInGuard } from './_guards/logged-in.guard';
+import { AuthorizeInterceptor } from './_interceptors/authorize.interceptor';
 import { TokenInterceptor } from './_interceptors/token.interceptor';
 import { MenuHeaderComponent } from './_layout/menu-header/menu-header.component';
 import { KeepHtmlPipe } from './_pipes/keep-html.pipe';
@@ -57,6 +58,10 @@ registerLocaleData(pt, 'pt-BR');
     }, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizeInterceptor,
       multi: true
     },
     AlertService,
