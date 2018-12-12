@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InvoicePayload } from 'src/app/_models/request-response.model';
+import { Locale } from 'src/app/locale';
+import { InvoicePayload, PagSeguro } from 'src/app/_models/request-response.model';
 import { AlertService } from 'src/app/_services/alert.service';
-import { PostingService } from 'src/app/_services/posting.service.';
+import { InvoiceService } from 'src/app/_services/invoice.service';
 
 @Component({
   selector: 'app-posting-list',
@@ -11,13 +12,16 @@ import { PostingService } from 'src/app/_services/posting.service.';
 })
 export class PostingListComponent implements OnInit {
 
-  public postings: InvoicePayload.Posting[];
+  public invoice: InvoicePayload.Invoice;
+  public monthNames = Locale.monthNames;
+  public statusList = PagSeguro.Transaction.statusText;
 
+  private dateNow = new Date();
   private invoiceId: string;
 
   constructor(
     private alertService: AlertService,
-    private postingService: PostingService,
+    private invoiceService: InvoiceService,
     private route: ActivatedRoute,
   ) { }
 
@@ -28,12 +32,16 @@ export class PostingListComponent implements OnInit {
     });
   }
 
+  public isOverdue(date: string) {
+    return this.dateNow.toISOString().substr(0, 10) > date.substr(0, 10);
+  }
+
   private getPostings() {
-    this.postingService
-      .list(this.invoiceId)
+    this.invoiceService
+      .get(this.invoiceId)
       .subscribe(
         (response) => {
-          this.postings = response.result;
+          this.invoice = response.result;
         },
         (error) => {
           this.alertService.error('Algo deu errado!');

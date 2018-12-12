@@ -1,21 +1,66 @@
-<table class="table table-sm table-striped" *ngIf="postings && postings.length">
-  <thead>
-    <th>Data</th>
-    <th>Descrição</th>
-    <th>Valor</th>
-    <th>Tipo</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let posting of postings">
-      <td>{{ posting.createdAt | date:'dd/MM' }}</td>
-      <td>{{ posting.description }}</td>
-      <td>{{ posting.amount | currency:'BRL' }}</td>
-      <td>
-        <span class="badge bg-{{ posting.type }}">{{ posting.type | uppercase }}</span>
-      </td>
-      <td class="col-buttons">
-      </td>
-    </tr>
-  </tbody>
-</table>
+<ng-container *ngIf="invoice && invoice.postings && invoice.postings.length">
+  <div>
+    <b>ID:</b>
+    <span class="badge badge-secondary">{{ invoice.id }}</span>
+    <small><em>
+      -
+      <a target="_blank" href="https://gauti-invoice-cli.herokuapp.com/invoice/{{ invoice._id }}">visualizar</a>
+    </em></small>
+  </div>
+  <div>
+    <b>Cliente:</b>
+    {{ invoice.customer.name || invoice.customer.responsibleName }}
+    <small><em>
+      -
+      <a [routerLink]="['/admin', 'customers', invoice.customer._id]">mais detalhes</a>
+    </em></small>
+  </div>
+  <div>
+    <b>Competência:</b>
+    {{ monthNames[invoice.month] }}/{{ invoice.year }}
+  </div>
+  <div *ngIf="invoice.dueDate">
+    <b>Vencimento:</b>
+    {{ invoice.dueDate | slice:0:10 | date:'shortDate' }}
+  </div>
+  <div *ngIf="invoice.amount">
+    <b>Valor:</b>
+    {{ invoice.amount | currency:'BRL' }}
+  </div>
+  <div>
+    <b>Situação:</b>
+    <span *ngIf="!invoice.closed" class="badge badge-dark">ABERTA</span>
+    <span *ngIf="invoice.closed" class="badge badge-dark">FECHADA</span>
+    <span *ngIf="invoice.paid" class="badge badge-success">PAGA</span>
+    <span *ngIf="!invoice.paid" class="badge badge-warning">AGUARDANDO PAGAMENTO</span>
+    <span *ngIf="invoice.dueDate && !invoice.paid && isOverdue(invoice.dueDate)" class="badge badge-danger">VENCIDA</span>
+  </div>
+  <div *ngIf="invoice.lastStatus || invoice.paymentCode">
+    <b>PagSeguro:</b>
+    <span *ngIf="invoice.lastStatus" class="badge badge-secondary">{{ statusList[invoice.lastStatus] | uppercase }}</span>
+    <span *ngIf="invoice.paymentCode" class="badge badge-secondary">{{ invoice.paymentCode }}</span>
+  </div>
+  <br />
+
+  <table class="table table-sm table-striped">
+    <thead>
+      <th>Data</th>
+      <th>Descrição</th>
+      <th>Valor</th>
+      <th>Tipo</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let posting of invoice.postings">
+        <td>{{ posting.createdAt | date:'dd/MM' }}</td>
+        <td>{{ posting.description }}</td>
+        <td>{{ posting.amount | currency:'BRL' }}</td>
+        <td>
+          <span class="badge bg-{{ posting.type }}">{{ posting.type | uppercase }}</span>
+        </td>
+        <td class="col-buttons">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

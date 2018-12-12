@@ -2,6 +2,7 @@
   primeira fatura</a>
 <table class="table table-sm table-striped" *ngIf="invoices && invoices.length">
   <thead>
+    <th>Cliente</th>
     <th>Competência</th>
     <th>Vencimento</th>
     <th>Valor</th>
@@ -11,6 +12,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let invoice of invoices">
+      <td>{{ invoice.customer.name || invoice.customer.responsibleName }}</td>
       <td>{{ monthNames[invoice.month] }}/{{ invoice.year }}</td>
       <td>{{ invoice.dueDate | slice:0:10 | date:'shortDate' }}</td>
       <td>{{ invoice.amount | currency:'BRL' }}</td>
@@ -26,8 +28,13 @@
         <span *ngIf="invoice.lastStatus" class="badge badge-secondary">{{ statusList[invoice.lastStatus] | uppercase }}</span>
       </td>
       <td class="col-buttons">
+        <!--
+          TODO: Excluir fatura
+          Reabrir fatura
+          Visualizar
+        -->
         <a *ngIf="!invoice.closed" (click)="closeInvoice(invoice)" class="btn btn-sm btn-warning">Fechar</a>
-        <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Lançamentos</a>
+        <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Detalhar</a>
       </td>
     </tr>
   </tbody>

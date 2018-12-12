@@ -40,6 +40,10 @@ export class InvoiceService {
       );
   }
 
+  public get(invoiceId: string) {
+    return this.http.get<DefaultResponse<InvoicePayload.Invoice>>(`${environment.baseUrl}/v1/invoice/${invoiceId}`);
+  }
+
   public listByCustomer(customerId: string) {
     return this.http
       .get<DefaultResponse<InvoicePayload.Invoice[]>>(`${environment.baseUrl}/v1/customer/${customerId}/invoices`)
