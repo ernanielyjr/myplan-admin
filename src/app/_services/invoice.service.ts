@@ -52,6 +52,10 @@ export class InvoiceService {
       );
   }
 
+  public resendEmail(invoiceId: string) {
+    return this.http.get<DefaultResponse<any>>(`${environment.baseUrl}/v1/invoice/${invoiceId}/resend`);
+  }
+
   public closeInvoice(invoiceId: string) {
     return this.http.get<DefaultResponse<any>>(`${environment.baseUrl}/v1/invoice/${invoiceId}/close`);
   }

@@ -44,7 +44,7 @@ export namespace InvoicePayload {
     _id: string;
     updatedAt: string;
     createdAt: string;
-    dueDate?: string;
+    dueDate?: Date;
     month: number;
     year: number;
     _customerId: string;
@@ -52,7 +52,8 @@ export namespace InvoicePayload {
     amount?: number;
     paymentCode?: string;
     paid: boolean;
-    lastStatus: PagSeguro.Transaction.Status;
+    lastStatus?: PagSeguro.Transaction.Status;
+    lastStatusTime?: Date;
     postings?: Posting[];
   }
 

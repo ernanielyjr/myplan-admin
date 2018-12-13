@@ -25,7 +25,10 @@
         </ng-container>
       </td>
       <td class="text-right">
-        <span *ngIf="invoice.lastStatus" class="badge badge-secondary">{{ statusList[invoice.lastStatus] | uppercase }}</span>
+        <ng-container *ngIf="invoice.lastStatus">
+          <span class="badge badge-secondary">{{ statusList[invoice.lastStatus] | uppercase }}</span>
+          <small *ngIf="invoice.lastStatusTime"><br />{{ invoice.lastStatusTime | date:'shortDate' }}</small>
+        </ng-container>
       </td>
       <td class="col-buttons">
         <!--
@@ -34,6 +37,7 @@
           Visualizar
         -->
         <a *ngIf="!invoice.closed" (click)="closeInvoice(invoice)" class="btn btn-sm btn-warning">Fechar</a>
+        <a *ngIf="invoice.closed && !invoice.paid" (click)="resendEmail(invoice)" class="btn btn-sm btn-warning">Reenviar E-mail</a>
         <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Detalhar</a>
       </td>
     </tr>

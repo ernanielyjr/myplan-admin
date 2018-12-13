@@ -47,6 +47,23 @@ export class InvoiceListComponent implements OnInit {
       );
   }
 
+  public resendEmail(invoice: InvoicePayload.Invoice) {
+    if (!confirm('Deseja reenviar o email para esta fatura?')) {
+      return;
+    }
+
+    this.invoiceService
+      .resendEmail(invoice._id)
+      .subscribe(
+        (response) => {
+          this.getInvoices();
+        },
+        (error) => {
+          this.alertService.error('Algo deu errado!');
+        }
+      );
+  }
+
   public closeInvoice(invoice: InvoicePayload.Invoice) {
     if (!confirm('Deseja realmente fechar esta fatura?')) {
       return;
