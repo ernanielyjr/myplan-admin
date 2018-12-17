@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 import { EmailPayload } from 'src/app/_models/request-response.model';
 import { AlertService } from 'src/app/_services/alert.service';
 import { EmailService } from 'src/app/_services/email.service';
@@ -10,6 +11,7 @@ import { EmailService } from 'src/app/_services/email.service';
 })
 export class EmailListComponent implements OnInit {
 
+  public loading = false;
   public emails: EmailPayload.Email[];
 
   constructor(
@@ -22,8 +24,13 @@ export class EmailListComponent implements OnInit {
   }
 
   private getEmails() {
+    this.loading = true;
+
     this.emailService
       .list()
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.emails = response.result;

@@ -1,5 +1,6 @@
-<a *ngIf="customerId && (!invoices || !invoices.length)" class="btn btn-primary text-white" (click)="generateFirstInvoice()">Gerar
-  primeira fatura</a>
+<div *ngIf="loading" class="loading"></div>
+
+<a *ngIf="customerId && (!invoices || !invoices.length)" class="btn btn-primary text-white" (click)="generateFirstInvoice()">Gerar primeira fatura</a>
 <table class="table table-sm table-striped" *ngIf="invoices && invoices.length">
   <thead>
     <th>Cliente</th>

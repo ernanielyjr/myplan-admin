@@ -1,32 +1,36 @@
-<span class="badge badge-success">TOTAL ATIVO: {{ amountActiveSum | currency:'BRL' }}</span><br />
-<span class="badge badge-secondary">TOTAL INATIVO: {{ amountInactiveSum | currency:'BRL' }}</span><br />
-<br />
+<div *ngIf="loading" class="loading"></div>
 
-<table class="table table-sm table-striped" *ngIf="services && services.length">
-  <thead>
-    <th>Descrição</th>
-    <th>Valor</th>
-    <th>Recorrência</th>
-    <th>Situação</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let service of services">
-      <td>{{ service.description }}</td>
-      <td>{{ service.amount | currency:'BRL' }}</td>
-      <td>
-        <span class="badge badge-warning">
-          {{ service.recurrenceType | uppercase }}
-          /
-          {{ service.recurrenceInterval }}
-        </span>
-      </td>
-      <td>
-        <span *ngIf="!service.inactive" class="badge badge-success">ATIVO</span>
-        <span *ngIf="service.inactive" class="badge badge-secondary">INATIVO</span>
-      </td>
-      <td class="col-buttons">
-      </td>
-    </tr>
-  </tbody>
-</table>
+<ng-container *ngIf="services && services.length">
+  <span class="badge badge-success">TOTAL ATIVO: {{ amountActiveSum | currency:'BRL' }}</span><br />
+  <span class="badge badge-secondary">TOTAL INATIVO: {{ amountInactiveSum | currency:'BRL' }}</span><br />
+  <br />
+
+  <table class="table table-sm table-striped">
+    <thead>
+      <th>Descrição</th>
+      <th>Valor</th>
+      <th>Recorrência</th>
+      <th>Situação</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let service of services">
+        <td>{{ service.description }}</td>
+        <td>{{ service.amount | currency:'BRL' }}</td>
+        <td>
+          <span class="badge badge-warning">
+            {{ service.recurrenceType | uppercase }}
+            /
+            {{ service.recurrenceInterval }}
+          </span>
+        </td>
+        <td>
+          <span *ngIf="!service.inactive" class="badge badge-success">ATIVO</span>
+          <span *ngIf="service.inactive" class="badge badge-secondary">INATIVO</span>
+        </td>
+        <td class="col-buttons">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

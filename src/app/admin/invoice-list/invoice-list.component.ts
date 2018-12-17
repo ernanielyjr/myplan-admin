@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { Locale } from 'src/app/locale';
 import { InvoicePayload, PagSeguro } from 'src/app/_models/request-response.model';
 import { AlertService } from 'src/app/_services/alert.service';
@@ -13,6 +14,7 @@ import { InvoiceService } from 'src/app/_services/invoice.service';
 })
 export class InvoiceListComponent implements OnInit {
 
+  public loading = false;
   public invoices: InvoicePayload.Invoice[];
   public monthNames = Locale.monthNames;
   public customerId: string;
@@ -35,8 +37,12 @@ export class InvoiceListComponent implements OnInit {
   }
 
   public generateFirstInvoice() {
+    this.loading = true;
     this.customerService
       .generateFirstInvoice(this.customerId)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.getInvoices();
@@ -52,8 +58,13 @@ export class InvoiceListComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     this.invoiceService
       .resendEmail(invoice._id)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.getInvoices();
@@ -69,8 +80,13 @@ export class InvoiceListComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     this.invoiceService
       .closeInvoice(invoice._id)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.getInvoices();
@@ -86,12 +102,17 @@ export class InvoiceListComponent implements OnInit {
   }
 
   private getInvoices() {
+    this.loading = true;
+
     let selectedService = this.invoiceService.list();
     if (this.customerId) {
       selectedService = this.invoiceService.listByCustomer(this.customerId);
     }
 
     selectedService
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.invoices = response.result;

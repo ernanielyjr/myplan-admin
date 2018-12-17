@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { EmailPayload } from 'src/app/_models/request-response.model';
 import { AlertService } from 'src/app/_services/alert.service';
 import { EmailService } from 'src/app/_services/email.service';
@@ -11,6 +12,7 @@ import { EmailService } from 'src/app/_services/email.service';
 })
 export class EmailDetailComponent implements OnInit {
 
+  public loading = false;
   public email: EmailPayload.Email;
 
   private emailId: string;
@@ -29,8 +31,13 @@ export class EmailDetailComponent implements OnInit {
   }
 
   private getEmail() {
+    this.loading = true;
+
     this.emailService
       .get(this.emailId)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.email = response.result;

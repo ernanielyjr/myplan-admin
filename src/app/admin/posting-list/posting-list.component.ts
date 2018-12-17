@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { Locale } from 'src/app/locale';
 import { InvoicePayload, PagSeguro } from 'src/app/_models/request-response.model';
 import { AlertService } from 'src/app/_services/alert.service';
@@ -12,6 +13,7 @@ import { InvoiceService } from 'src/app/_services/invoice.service';
 })
 export class PostingListComponent implements OnInit {
 
+  public loading = false;
   public invoice: InvoicePayload.Invoice;
   public monthNames = Locale.monthNames;
   public statusList = PagSeguro.Transaction.statusText;
@@ -37,8 +39,13 @@ export class PostingListComponent implements OnInit {
   }
 
   private getPostings() {
+    this.loading = true;
+
     this.invoiceService
       .get(this.invoiceId)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.invoice = response.result;

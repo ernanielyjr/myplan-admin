@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { CustomerPayload } from 'src/app/_models/request-response.model';
 import { AlertService } from 'src/app/_services/alert.service';
 import { CustomerService } from 'src/app/_services/customer.service';
@@ -11,6 +12,7 @@ import { CustomerService } from 'src/app/_services/customer.service';
 })
 export class CustomerDetailComponent implements OnInit {
 
+  public loading = false;
   public customer: CustomerPayload.Customer;
 
   private customerId: string;
@@ -29,8 +31,13 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   private getCustomer() {
+    this.loading = true;
+
     this.customerService
       .get(this.customerId)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.customer = response.result;

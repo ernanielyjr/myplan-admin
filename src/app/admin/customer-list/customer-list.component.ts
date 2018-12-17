@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 import { CustomerPayload } from 'src/app/_models/request-response.model';
 import { AlertService } from 'src/app/_services/alert.service';
 import { CustomerService } from 'src/app/_services/customer.service';
@@ -10,6 +11,7 @@ import { CustomerService } from 'src/app/_services/customer.service';
 })
 export class CustomerListComponent implements OnInit {
 
+  public loading = false;
   public customers: CustomerPayload.Customer[];
 
   constructor(
@@ -22,8 +24,13 @@ export class CustomerListComponent implements OnInit {
   }
 
   private getCustomers() {
+    this.loading = true;
+
     this.customerService
       .list()
+      .pipe(
+        finalize(() => this.loading = false)
+      )
       .subscribe(
         (response) => {
           this.customers = response.result;
