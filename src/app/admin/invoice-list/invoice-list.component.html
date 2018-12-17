@@ -18,7 +18,8 @@
       <td>{{ invoice.amount | currency:'BRL' }}</td>
       <td class="text-right">
         <span *ngIf="!invoice.closed" class="badge badge-dark">ABERTA</span>
-        <span *ngIf="invoice.paid" class="badge badge-success">PAGA</span>
+        <span *ngIf="invoice.paid && !invoice.deferredPayment" class="badge badge-success">PAGA</span>
+        <span *ngIf="invoice.paid && invoice.deferredPayment" class="badge badge-success">PAGAMENTO POSTERGADO</span>
         <ng-container *ngIf="invoice.closed && !invoice.paid">
           <span *ngIf="!isOverdue(invoice.dueDate)" class="badge badge-warning">AGUARDANDO PAGAMENTO</span>
           <span *ngIf="isOverdue(invoice.dueDate)" class="badge badge-danger">VENCIDA</span>

@@ -31,7 +31,8 @@
     <b>Situação:</b>
     <span *ngIf="!invoice.closed" class="badge badge-dark">ABERTA</span>
     <span *ngIf="invoice.closed" class="badge badge-dark">FECHADA</span>
-    <span *ngIf="invoice.paid" class="badge badge-success">PAGA</span>
+    <span *ngIf="invoice.paid && !invoice.deferredPayment" class="badge badge-success">PAGA</span>
+    <span *ngIf="invoice.paid && invoice.deferredPayment" class="badge badge-success">PAGAMENTO POSTERGADO</span>
     <span *ngIf="!invoice.paid" class="badge badge-warning">AGUARDANDO PAGAMENTO</span>
     <span *ngIf="invoice.dueDate && !invoice.paid && isOverdue(invoice.dueDate)" class="badge badge-danger">VENCIDA</span>
   </div>

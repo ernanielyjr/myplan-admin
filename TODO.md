@@ -1,14 +1,13 @@
 # TO-DO List
 
 
-ao abrir fechar uma fatura, se ela nao estiver paga, marcá-la como: paga e pagamento adiado
-
-permitir pagar valor diferente, desde que seja multiplo da soma de serviços: desconto de 2% a.m.
-  Explicar ao cliente que ele ficará com um saldo positivo na sua conta, mas se utilizar serviços avulsos bem como contratar manutenções, estes serviços serão descontados do seu saldo, e e no momento que o saldo zerar, ele voltará a ser cobrado
+cobrar atrasados automaticamente - somente aqueles que estão com o status do pagseguro "aguardando pagamento" a mais de 1 dia útil ou aqueles que ainda nao iniciaram o processo de pagamento
 
 fazer checkout transparente para boleto
   avisar o cliente que o que vale é a data do vencimento da fatura e nao do vencimento do boleto
 
+permitir pagar valor diferente, desde que seja multiplo da soma de serviços: desconto de 2% a.m.
+  Explicar ao cliente que ele ficará com um saldo positivo na sua conta, mas se utilizar serviços avulsos bem como contratar manutenções, estes serviços serão descontados do seu saldo, e e no momento que o saldo zerar, ele voltará a ser cobrado
 
 fazer bloqueio automático após 5 dias de atraso
 
@@ -19,8 +18,6 @@ notificar cliente sobre bloqueio
 cobrar multa e juros por atraso
 
 fechar faturas automaticamente
-
-cobrar atrasados automaticamente - somente aqueles que estão com o status do pagseguro "aguardando pagamento" a mais de 1 dia útil ou aqueles que ainda nao iniciaram o processo de pagamento
 
 emitir nota fiscal automaticamente
 
