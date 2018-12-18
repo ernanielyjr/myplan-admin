@@ -38,10 +38,11 @@
     <span *ngIf="!invoice.paid" class="badge badge-warning">AGUARDANDO PAGAMENTO</span>
     <span *ngIf="invoice.dueDate && !invoice.paid && isOverdue(invoice.dueDate)" class="badge badge-danger">VENCIDA</span>
   </div>
-  <div *ngIf="invoice.lastStatus || invoice.paymentCode">
+  <div *ngIf="invoice.lastStatus || invoice.paymentData">
     <b>PagSeguro:</b>
     <span *ngIf="invoice.lastStatus" class="badge badge-secondary">{{ statusList[invoice.lastStatus] | uppercase }}</span>
-    <span *ngIf="invoice.paymentCode" class="badge badge-secondary">{{ invoice.paymentCode }}</span>
+    <span *ngIf="invoice.paymentData" class="badge badge-secondary">{{ invoice.paymentData }}</span>
+    <span *ngIf="invoice.paymentMode" class="badge badge-secondary">{{ invoice.paymentMode }}</span>
   </div>
   <br />
 

@@ -48,13 +48,41 @@ export namespace InvoicePayload {
     month: number;
     year: number;
     _customerId: string;
+    customer: Customer;
     closed: boolean;
     amount?: number;
-    paymentCode?: string;
+    paymentData?: string;
+    paymentMode?: string;
+    read: boolean;
     paid: boolean;
+    deferredPayment: boolean;
     lastStatus?: PagSeguro.Transaction.Status;
     lastStatusTime?: Date;
     postings?: Posting[];
+  }
+
+  export interface Customer {
+    name: string;
+    emails: string[];
+    phones: string[];
+    documentNumber: string;
+    documentType: string;
+    responsibleName?: string;
+    invoiceMaturity: number;
+    address?: Address;
+    emitNFSe: boolean;
+    notes: string[];
+  }
+
+  export interface Address {
+    street: string;
+    number: string;
+    complement?: string;
+    neighborhood: string;
+    city: string;
+    state: string;
+    country: string;
+    zipCode: string;
   }
 
   export interface Posting {
