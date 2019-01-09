@@ -29,4 +29,8 @@ export class EmailService {
   public get(emailId: string) {
     return this.http.get<DefaultResponse<EmailPayload.Email>>(`${environment.baseUrl}/v1/email/${emailId}`);
   }
+
+  public delete(emailId: string) {
+    return this.http.delete<DefaultResponse<EmailPayload.Email>>(`${environment.baseUrl}/v1/email/${emailId}`);
+  }
 }

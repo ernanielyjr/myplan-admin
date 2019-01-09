@@ -41,4 +41,25 @@ export class EmailListComponent implements OnInit {
       );
   }
 
+  public deleteEmail(email: EmailPayload.Email) {
+    if (!confirm('Deseja realmente excluir este e-mail?')) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.emailService
+      .delete(email._id)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe(
+        (response) => {
+          this.getEmails();
+        },
+        (error) => {
+          this.alertService.error('Algo deu errado!');
+        }
+      );
+  }
 }

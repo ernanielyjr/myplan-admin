@@ -27,6 +27,7 @@
         <span *ngIf="!email.sent" class="badge badge-secondary">PENDENTE</span>
       </td>
       <td class="col-buttons">
+        <a *ngIf="!email.sent" (click)="deleteEmail(email)" class="btn btn-sm btn-danger text-white">Excluir</a>
         <a [routerLink]="['./', email._id]" class="btn btn-sm btn-info text-white">Detalhes</a>
       </td>
     </tr>
