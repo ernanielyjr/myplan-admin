@@ -55,4 +55,26 @@ export class PostingListComponent implements OnInit {
         }
       );
   }
+
+  public deletePosting(invoiceId: string, posting: InvoicePayload.Posting) {
+    if (!confirm('Deseja realmente excluir este lançamento?')) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.invoiceService
+      .deletePosting(invoiceId, posting._id)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe(
+        (response) => {
+          this.getPostings();
+        },
+        (error) => {
+          this.alertService.error('Algo deu errado!');
+        }
+      );
+  }
 }

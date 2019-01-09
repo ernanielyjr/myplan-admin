@@ -48,6 +48,7 @@
 
   <table class="table table-sm table-striped">
     <thead>
+      <th>Id</th>
       <th>Data</th>
       <th>Descrição</th>
       <th>Valor</th>
@@ -56,6 +57,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let posting of invoice.postings">
+        <td>{{ posting._id }}</td>
         <td>{{ posting.createdAt | date:'dd/MM' }}</td>
         <td>{{ posting.description }}</td>
         <td>{{ posting.amount | currency:'BRL' }}</td>
@@ -63,6 +65,7 @@
           <span class="badge bg-{{ posting.type }}">{{ posting.type | uppercase }}</span>
         </td>
         <td class="col-buttons">
+          <a *ngIf="!invoice.paid" (click)="deletePosting(invoice._id, posting)" class="btn btn-sm btn-danger text-white">Excluir</a>
         </td>
       </tr>
     </tbody>

@@ -1,20 +1,11 @@
 # TO-DO List
 
-
-fazer checkout transparente para boleto
-  avisar o cliente que o que vale é a data do vencimento da fatura e nao do vencimento do boleto
-
-- Valor da fatura negativo:
-    no email, nao mostrar o botão pagar, mostrar o botão conferir. Falar que não é necessário realizar pagamento. Mostrar fatura com valor zerado
-    no admin, nao habilitar o botão reenviar
-    na api, ao fechar a fatura, já marcar como paga
+permitir pagar valor diferente, desde que seja multiplo da soma de serviços: desconto de 2% a.m.
+  Explicar ao cliente que ele ficará com um saldo positivo na sua conta, mas se utilizar serviços avulsos bem como contratar manutenções, estes serviços serão descontados do seu saldo, e no momento que o saldo zerar, ele voltará a ser cobrado
 
 Na lista de faturas adicionar filtro por situação (fechada, aberta, paga, não paga, vencida) e competencia
 
 Ao entrar na lista de faturas, por padrão traz a lista de fechadas, não pagas, vencidas
-
-permitir pagar valor diferente, desde que seja multiplo da soma de serviços: desconto de 2% a.m.
-  Explicar ao cliente que ele ficará com um saldo positivo na sua conta, mas se utilizar serviços avulsos bem como contratar manutenções, estes serviços serão descontados do seu saldo, e e no momento que o saldo zerar, ele voltará a ser cobrado
 
 cobrar atrasados automaticamente - somente aqueles que estão com o status do pagseguro "aguardando pagamento" a mais de 1 dia útil ou aqueles que ainda nao iniciaram o processo de pagamento
 

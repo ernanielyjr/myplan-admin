@@ -59,4 +59,8 @@ export class InvoiceService {
   public closeInvoice(invoiceId: string) {
     return this.http.get<DefaultResponse<any>>(`${environment.baseUrl}/v1/invoice/${invoiceId}/close`);
   }
+
+  public deletePosting(invoiceId: string, postingId: string) {
+    return this.http.delete<DefaultResponse<any>>(`${environment.baseUrl}/v1/invoice/${invoiceId}/posting/${postingId}`);
+  }
 }
