@@ -19,7 +19,17 @@ export class InvoiceListComponent implements OnInit {
   public monthNames = Locale.monthNames;
   public customerId: string;
   public statusList = PagSeguro.Transaction.statusText;
+  public filters = {
+    status: 'closed',
+    payment: 'unpaid',
+    dueDate: 'overdue',
+    month: '',
+    year: '',
+  };
+  public monthValue = '';
+  public yearValue = '';
 
+  private fullInvoicesList: InvoicePayload.Invoice[];
   private dateNow = new Date();
 
   constructor(
@@ -101,6 +111,65 @@ export class InvoiceListComponent implements OnInit {
     return this.dateNow.toISOString().substr(0, 10) > date.substr(0, 10);
   }
 
+  public setFilter(filterName: string, value: string) {
+    let newValue = value;
+    if (filterName === 'month' || filterName === 'year') {
+      try {
+        const valueInt = parseInt(value, 10);
+
+        if (
+          (filterName === 'month' && valueInt >= 1 && valueInt <= 12) ||
+          (filterName === 'year' && valueInt >= 2018 && valueInt <= 2099)
+        ) {
+          newValue = valueInt.toString();
+        } else {
+          newValue = '';
+        }
+      } catch (_) {
+        newValue = '';
+      }
+
+      this[`${filterName}Value`] = newValue;
+    }
+
+    this.filters[filterName] = newValue;
+    this.filterResults();
+  }
+
+  private filterResults() {
+    this.invoices = this.fullInvoicesList.filter((invoice) => {
+      let includeThis = true;
+
+      if (this.filters.status === 'closed' && !invoice.closed) {
+        includeThis = false;
+      } else if (this.filters.status === 'open' && invoice.closed) {
+        includeThis = false;
+      }
+
+      if (this.filters.payment === 'paid' && !invoice.paid) {
+        includeThis = false;
+      } else if (this.filters.payment === 'unpaid' && invoice.paid) {
+        includeThis = false;
+      }
+
+      if (this.filters.dueDate === 'overdue' && invoice.dueDate && !this.isOverdue(invoice.dueDate)) {
+        includeThis = false;
+      } else if (this.filters.dueDate === 'ok' && invoice.dueDate && this.isOverdue(invoice.dueDate)) {
+        includeThis = false;
+      }
+
+      if (this.filters.month && this.filters.month !== invoice.month.toString()) {
+        includeThis = false;
+      }
+
+      if (this.filters.year && this.filters.year !== invoice.year.toString()) {
+        includeThis = false;
+      }
+
+      return includeThis;
+    });
+  }
+
   private getInvoices() {
     this.loading = true;
 
@@ -115,7 +184,9 @@ export class InvoiceListComponent implements OnInit {
       )
       .subscribe(
         (response) => {
+          this.fullInvoicesList = response.result;
           this.invoices = response.result;
+          this.filterResults();
         },
         (error) => {
           this.alertService.error('Algo deu errado!');

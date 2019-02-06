@@ -1,47 +1,95 @@
 <div *ngIf="loading" class="loading"></div>
 
-<a *ngIf="customerId && (!invoices || !invoices.length)" class="btn btn-primary text-white" (click)="generateFirstInvoice()">Gerar primeira fatura</a>
-<table class="table table-sm table-striped" *ngIf="invoices && invoices.length">
-  <thead>
-    <th>Cliente</th>
-    <th>Competência</th>
-    <th>Vencimento</th>
-    <th>Valor</th>
-    <th></th>
-    <th class="text-right">PagSeguro</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let invoice of invoices">
-      <td>{{ invoice.customer.name || invoice.customer.responsibleName }}</td>
-      <td>{{ monthNames[invoice.month] }}/{{ invoice.year }}</td>
-      <td>{{ invoice.dueDate | slice:0:10 | date:'shortDate' }}</td>
-      <td>{{ invoice.amount | currency:'BRL' }}</td>
-      <td class="text-right">
-        <span *ngIf="!invoice.closed" class="badge badge-dark">ABERTA</span>
-        <span *ngIf="invoice.paid && !invoice.deferredPayment" class="badge badge-success">PAGA</span>
-        <span *ngIf="invoice.paid && invoice.deferredPayment" class="badge badge-success">PAGAMENTO POSTERGADO</span>
-        <ng-container *ngIf="invoice.closed && !invoice.paid">
-          <span *ngIf="!isOverdue(invoice.dueDate)" class="badge badge-warning">AGUARDANDO PAGAMENTO</span>
-          <span *ngIf="isOverdue(invoice.dueDate)" class="badge badge-danger">VENCIDA</span>
-        </ng-container>
-      </td>
-      <td class="text-right">
-        <ng-container *ngIf="invoice.lastStatus">
-          <span class="badge badge-secondary">{{ statusList[invoice.lastStatus] | uppercase }}</span>
-          <small *ngIf="invoice.lastStatusTime"><br />{{ invoice.lastStatusTime | date:'shortDate' }}</small>
-        </ng-container>
-      </td>
-      <td class="col-buttons">
-        <!--
-          TODO: Excluir fatura
-          Reabrir fatura
-          Visualizar
-        -->
-        <a *ngIf="!invoice.closed" (click)="closeInvoice(invoice)" class="btn btn-sm btn-warning">Fechar</a>
-        <a *ngIf="invoice.closed && !invoice.paid" (click)="resendEmail(invoice)" class="btn btn-sm btn-warning">Reenviar E-mail</a>
-        <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Detalhar</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<ng-container *ngIf="!loading">
+  <a *ngIf="customerId && (!invoices || !invoices.length)" class="btn btn-primary text-white" (click)="generateFirstInvoice()">
+    Gerar primeira fatura
+  </a>
+  <div class="row filters">
+    <div class="col-lg-3">
+      <label>Situação:</label>
+      <div class="buttons">
+        <button class="btn btn-sm" (click)="setFilter('status', null)" [class.btn-light]="filters.status"
+          [class.btn-info]="!filters.status">Todas</button>
+        <button class="btn btn-sm" (click)="setFilter('status', 'closed')" [class.btn-light]="filters.status !== 'closed'"
+          [class.btn-success]="filters.status === 'closed'">Fechadas</button>
+        <button class="btn btn-sm" (click)="setFilter('status', 'open')" [class.btn-light]="filters.status !== 'open'"
+          [class.btn-warning]="filters.status === 'open'">Abertas</button>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <label>Pagamento:</label>
+      <div class="buttons">
+        <button class="btn btn-sm" (click)="setFilter('payment', null)" [class.btn-light]="filters.payment"
+          [class.btn-info]="!filters.payment">Todas</button>
+        <button class="btn btn-sm" (click)="setFilter('payment', 'paid')" [class.btn-light]="filters.payment !== 'paid'"
+          [class.btn-success]="filters.payment === 'paid'">Pagas</button>
+        <button class="btn btn-sm" (click)="setFilter('payment', 'unpaid')" [class.btn-light]="filters.payment !== 'unpaid'"
+          [class.btn-danger]="filters.payment === 'unpaid'">Não pagas</button>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <label>Vencimento:</label>
+      <div class="buttons">
+        <button class="btn btn-sm" (click)="setFilter('dueDate', null)" [class.btn-light]="filters.dueDate"
+          [class.btn-info]="!filters.dueDate">Todas</button>
+        <button class="btn btn-sm" (click)="setFilter('dueDate', 'overdue')" [class.btn-light]="filters.dueDate !== 'overdue'"
+          [class.btn-danger]="filters.dueDate === 'overdue'">Vencidas</button>
+        <button class="btn btn-sm" (click)="setFilter('dueDate', 'ok')" [class.btn-light]="filters.dueDate !== 'ok'"
+          [class.btn-warning]="filters.dueDate === 'ok'">Não vencidas</button>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <label>Competência:</label>
+      <div class="inputs">
+        <input class="form-control month" type="phone" maxlength="2" [(ngModel)]="monthValue" placeholder="Mês" (blur)="setFilter('month', monthValue)" />
+        <span>/</span>
+        <input class="form-control year" type="phone" maxlength="4" [(ngModel)]="yearValue" placeholder="Ano" (blur)="setFilter('year', yearValue)" />
+      </div>
+    </div>
+  </div>
+  <table class="table table-sm table-striped" *ngIf="invoices && invoices.length">
+    <thead>
+      <th>Cliente</th>
+      <th>Competência</th>
+      <th>Vencimento</th>
+      <th>Valor</th>
+      <th></th>
+      <th class="text-right">PagSeguro</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices">
+        <td>{{ invoice.customer.name || invoice.customer.responsibleName }}</td>
+        <td>{{ monthNames[invoice.month] }}/{{ invoice.year }}</td>
+        <td>{{ invoice.dueDate | slice:0:10 | date:'shortDate' }}</td>
+        <td>{{ invoice.amount | currency:'BRL' }}</td>
+        <td class="text-right">
+          <span *ngIf="!invoice.closed" class="badge badge-dark">ABERTA</span>
+          <span *ngIf="invoice.paid && !invoice.deferredPayment" class="badge badge-success">PAGA</span>
+          <span *ngIf="invoice.paid && invoice.deferredPayment" class="badge badge-success">PAGAMENTO POSTERGADO</span>
+          <ng-container *ngIf="invoice.closed && !invoice.paid">
+            <span *ngIf="!isOverdue(invoice.dueDate)" class="badge badge-warning">AGUARDANDO PAGAMENTO</span>
+            <span *ngIf="isOverdue(invoice.dueDate)" class="badge badge-danger">VENCIDA</span>
+          </ng-container>
+        </td>
+        <td class="text-right">
+          <ng-container *ngIf="invoice.lastStatus">
+            <span class="badge badge-secondary">{{ statusList[invoice.lastStatus] | uppercase }}</span>
+            <small *ngIf="invoice.lastStatusTime"><br />{{ invoice.lastStatusTime | date:'shortDate' }}</small>
+          </ng-container>
+        </td>
+        <td class="col-buttons">
+          <!--
+              TODO: Excluir fatura
+              Reabrir fatura
+              Visualizar
+            -->
+          <a *ngIf="!invoice.closed" (click)="closeInvoice(invoice)" class="btn btn-sm btn-warning">Fechar</a>
+          <a *ngIf="invoice.closed && !invoice.paid" (click)="resendEmail(invoice)" class="btn btn-sm btn-warning">Reenviar
+            E-mail</a>
+          <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Detalhar</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

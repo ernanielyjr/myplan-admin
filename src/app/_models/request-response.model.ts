@@ -44,7 +44,7 @@ export namespace InvoicePayload {
     _id: string;
     updatedAt: string;
     createdAt: string;
-    dueDate?: Date;
+    dueDate?: string;
     month: number;
     year: number;
     _customerId: string;

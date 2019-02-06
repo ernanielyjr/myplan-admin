@@ -1,5 +1,9 @@
 @import '~bootstrap/scss/bootstrap';
 
+.container {
+  max-width: calc(100% - 30px);;
+}
+
 .bg-balance {
   color: color-yiq(theme-color("secondary"));
   background-color: theme-color("secondary");

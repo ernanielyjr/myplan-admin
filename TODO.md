@@ -14,10 +14,6 @@ opção de reabrir a fatura
   opção de excluir lançamentos de uma fatura aberta (só o botão, pois o serviço já existe)
   só pode reabrir caso nao tenha nenhuma outra fechada depois dela (ela tem que ser a fatura fechada mais recente)
 
-Na lista de faturas adicionar filtro por situação (fechada, aberta, paga, não paga, vencida) e competencia (mes/ano)
-
-Ao entrar na lista de faturas, por padrão filtrar assim: closed and !paid and overdue
-
 permitir pagar valor diferente, desde que seja multiplo da soma de serviços: desconto de 2% a.m.
   Explicar ao cliente que ele ficará com um saldo positivo na sua conta, mas se utilizar serviços avulsos bem como contratar manutenções, estes serviços serão descontados do seu saldo, e no momento que o saldo zerar, ele voltará a ser cobrado
 
