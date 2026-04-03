@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build --aot --prod",
+    "dev": "ng serve --port 4201 --host 0.0.0.0",
+    "build": "ng build --aot --prod --base-href=/admin/",
     "lint": "ng lint"
   },
   "private": true,
@@ -27,7 +28,7 @@
     "codelyzer": "~4.2.1",
     "core-js": "^2.5.4",
     "node-sass": "^4.14.1",
-    "rxjs": "^6.0.0",
+    "rxjs": "6.0.0",
     "ts-node": "~5.0.1",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.0",
@@ -35,7 +36,7 @@
     "zone.js": "~0.8.26"
   },
   "engines": {
-    "node": "10.7.0",
-    "npm": "6.1.0"
+    "node": "14.21.3",
+    "npm": "6.14.18"
   }
 }
