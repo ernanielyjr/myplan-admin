@@ -13,7 +13,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { LoggedInGuard } from './_guards/logged-in.guard';
 
 const routes: Routes = [{
-  path: 'admin',
+  path: '',
   canActivate: [AuthGuard],
   children: [{
     path: '',

@@ -14,7 +14,7 @@ export class LoggedInGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigateByUrl('/admin');
+    this.router.navigateByUrl('/');
 
     return false;
   }

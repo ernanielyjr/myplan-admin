@@ -14,7 +14,7 @@
     {{ invoice.customer.name || invoice.customer.responsibleName }}
     <small><em>
       -
-      <a [routerLink]="['/admin', 'customers', invoice.customer._id]">mais detalhes</a>
+      <a [routerLink]="['/customers', invoice.customer._id]">mais detalhes</a>
     </em></small>
   </div>
   <div>

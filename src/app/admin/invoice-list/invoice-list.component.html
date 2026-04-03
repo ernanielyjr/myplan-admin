@@ -87,7 +87,7 @@
           <a *ngIf="!invoice.closed" (click)="closeInvoice(invoice)" class="btn btn-sm btn-warning">Fechar</a>
           <a *ngIf="invoice.closed && !invoice.paid" (click)="resendEmail(invoice)" class="btn btn-sm btn-warning">Reenviar
             E-mail</a>
-          <a [routerLink]="['/admin', 'invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Detalhar</a>
+          <a [routerLink]="['/invoices', invoice._id, 'postings']" class="btn btn-sm btn-info text-white">Detalhar</a>
         </td>
       </tr>
     </tbody>
